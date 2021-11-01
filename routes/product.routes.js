@@ -1,7 +1,22 @@
 const router = require("express").Router();
-
 const ProductModel = require("../models/Product");
-const attachCurrentUser = require("../middlewares/attachCurrentUser");
+const uplouder = require("../config/cloudinary.config");
+
+// rota upload de arquivos
+
+router.post(
+  "/image-upload",
+  uplouder.single("productPicture"),
+  (req, res, next) => {
+    if (!req.file) {
+      return next(new Error("Upload não condeguiu ser finalzado"));
+    }
+
+    console.log(req.file);
+
+    return res.status(201).json({ url: req.file.path });
+  }
+);
 
 // create post
 router.post("/products", async (req, res) => {
