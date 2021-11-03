@@ -43,7 +43,7 @@ router.get("/products", async (req, res) => {
       return res.status(404).json({ msg: "Product not found" });
     }
     console.log(result);
-    return res.status(200).json({ result });
+    return res.status(200).json(result);
   } catch (err) {
     console.error(err);
   }
@@ -63,9 +63,48 @@ router.get("/products/filter/:id", async (req, res) => {
       return res.status(404).json({ msg: "Product not found" });
     }
     console.log(result);
-    return res.status(200).json({ result });
+    return res.status(200).json(result);
   } catch (err) {
     console.error(err);
+  }
+});
+
+//update
+
+router.patch("/products/update/:id", async (req, res, next) => {
+  try {
+    const result = await ProductModel.findOneAndUpdate(
+      {
+        _id: req.params.id,
+      },
+      { $set: { ...req.body } },
+      { new: true, runValidators: true }
+    );
+    if (!result) {
+      return res.status(404).json({ msg: "Product not found" });
+    }
+    return res.status(200).json(result);
+  } catch (err) {
+    return next(err);
+  }
+});
+
+// delete
+
+router.delete("/products/delete/:id", async (req, res, next) => {
+  try {
+    const result = await ProductModel.deleteOne({
+      _id: req.params.id,
+    });
+
+    // condole.log(req.params_id);
+    if (result.deletedCount < 1) {
+      return res.status(404).json({ msg: "Pruduct not found" });
+    }
+
+    return res.status(200).json({});
+  } catch (err) {
+    return next(err);
   }
 });
 
