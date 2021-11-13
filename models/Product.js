@@ -2,6 +2,7 @@ const { Schema, model } = require("mongoose");
 
 const ProductSchema = new Schema({
   category: { type: String },
+  unity: { type: String, enum: ["cento", "Kg", "unidade"], required: true },
   title: { type: String, required: true },
   description: { type: String, required: true },
   value: { type: Number, required: true },

@@ -15,6 +15,9 @@ app.use("/api", userRouter);
 const productRouter = require("./routes/product.routes");
 app.use("/api", productRouter);
 
+const requestRouter = require("./routes/request.router");
+app.use("/api", requestRouter);
+
 app.listen(Number(process.env.PORT), () =>
   console.log(`Server up and running at port ${process.env.PORT}`)
 );
