@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 
-const ProductSchema = new Schema({
+const ProductsSchema = new Schema({
   category: { type: String },
   unity: { type: String, enum: ["cento", "Kg", "unidade"], required: true },
   title: { type: String, required: true },
@@ -9,6 +9,6 @@ const ProductSchema = new Schema({
   pictureUrl: { type: String, trim: true },
 });
 
-const ProductModel = model("Product", ProductSchema);
+const ProductModel = model("Product", ProductsSchema);
 
 module.exports = ProductModel;
