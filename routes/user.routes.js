@@ -48,7 +48,7 @@ router.post("/signup", async (req, res) => {
   } catch (err) {
     console.error(err);
     // O status 500 signifca Internal Server Error
-    return res.status(500).json({ msg: "erro" });
+    return res.status(500).json({ msg: JSON.stringify(err) });
   }
 });
 

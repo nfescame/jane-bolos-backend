@@ -9,7 +9,7 @@ router.post(
   uplouder.single("productPicture"),
   (req, res, next) => {
     if (!req.file) {
-      return next(new Error("Upload não condeguiu ser finalzado"));
+      return next(new Error("Upload não conseguiu ser finalzado"));
     }
 
     console.log(req.file);
