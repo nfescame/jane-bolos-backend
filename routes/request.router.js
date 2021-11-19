@@ -14,4 +14,19 @@ router.post("/request", async (req, res) => {
   }
 });
 
+router.get("/request/all", async (req, res) => {
+  try {
+    const result = await RequestModel.find({
+      ...req.body,
+    });
+    if (!result) {
+      return res.status(404).json({ msg: "Request not found" });
+    }
+    console.log(result);
+    return res.status(200).json(result);
+  } catch (err) {
+    console.error(err);
+  }
+});
+
 module.exports = router;
