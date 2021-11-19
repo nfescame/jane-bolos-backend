@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const RequestModel = require("../models/Request.js");
 
+//create
 router.post("/request", async (req, res) => {
   console.log(req);
   try {
@@ -14,6 +15,7 @@ router.post("/request", async (req, res) => {
   }
 });
 
+//get all
 router.get("/request/all", async (req, res) => {
   try {
     const result = await RequestModel.find({
@@ -26,6 +28,24 @@ router.get("/request/all", async (req, res) => {
     return res.status(200).json(result);
   } catch (err) {
     console.error(err);
+  }
+});
+
+//delete
+router.delete("/request/delete/:id", async (req, res, next) => {
+  try {
+    const result = await RequestModel.deleteOne({
+      _id: req.params.id,
+    });
+
+    // condole.log(req.params_id);
+    if (result.deletedCount < 1) {
+      return res.status(404).json({ msg: "Request not found" });
+    }
+
+    return res.status(200).json({});
+  } catch (err) {
+    return next(err);
   }
 });
 
